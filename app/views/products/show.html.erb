@@ -1,0 +1,45 @@
+<% content_for :body_class, 'bg-light' %>
+
+<section class="section product-show">
+  <div class="columns">
+    <div class="column is-8">
+      <h1 class="name is-2"><%= @product.name %></h1>
+
+      <ul class="pv1">
+
+
+
+      </ul>
+
+      <div class="feature-image">
+        <%= image_tag @product.image, class: 'main-img' %>
+      </div>
+
+      <div class="content pa4 mt3 bg-white border-radius-3">
+
+      <h3 class="subname is-4">Description</h3>+
+      <%= @product.description %>
+    </div>
+    </div>
+    <div class="column is-3 is-offset-1">
+      <div class="bg-white pa4 border-radius-3">
+        <h4 class="name is-5 has-text-centered"><%= number_to_currency(@product.cost) %></h4>
+        <p class="has-text-centered mb4">Sold by <%= @product.user.name if @product.user%></p>
+        Seller Contact Details: <br>
+        Name: <%= @product.user.name if @product.user%><br>
+        Email: <%= @product.user.email if @product.user%>
+
+    <% if @product.user.id!=current_user.id %><br>
+        <%= link_to 'Buy', buy_path(@product), class: 'buy'%><br>
+        <% end %>
+      </div>
+      Your wallet balance: <%= current_user.balance %>
+    </div>
+  </div>
+<% if @product.user%>
+    <% if @product.user.id==current_user.id %>
+      <%= link_to 'Edit', edit_product_path(@product), class: 'button' %>
+    <% end %>
+<% end %>
+
+</section>
